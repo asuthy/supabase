@@ -1,0 +1,22 @@
+{
+  "name": "copyfuse",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:1": {}
+  },
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "vscode",
+  "shutdownAction": "stopCompose",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [],
+  "initializeCommand": [".devcontainer/docker-init"],
+  "postStartCommand": "",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      },
+      "extensions": ["esbenp.prettier-vscode"]
+    }
+  }
+}

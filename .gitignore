@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+**/node_modules
+/.pnp
+.pnp.js
+
+# misc
+**/.DS_Store
+*.env
+*.pem
+
+# Supabase
+**/supabase/.branches
+**/supabase/.temp
+
+# Yarn
+.yarn/*
+**/.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
