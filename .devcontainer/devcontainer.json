@@ -9,6 +9,7 @@
   "workspaceFolder": "/workspace",
   "forwardPorts": [],
   "initializeCommand": [".devcontainer/docker-init"],
+  "postCreateCommand": "curl -s https://gist.githubusercontent.com/LukeChannings/09d53f5c364391042186518c8598b85e/raw/ac8cd8c675b985edd4b3e16df63ffef14d1f0e24/deno_install.sh | sh",
   "postStartCommand": "",
   "customizations": {
     "vscode": {
@@ -16,7 +17,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
       },
-      "extensions": ["esbenp.prettier-vscode"]
+      "extensions": ["esbenp.prettier-vscode", "denoland.vscode-deno"]
     }
   }
 }
