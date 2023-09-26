@@ -1,12 +1,13 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createError } from "https://deno.land/x/http_errors/mod.ts";
 
 serve(async (req: Request) => {
   try {
     const { email_address } = await req.json();
 
     if (!email_address) {
-      return throwError("Missing parameter: email_address is required.", 400);
+      throw createError(400, "Missing parameter: email_address is required.");
     }
 
     const supabase = createClient(
@@ -29,8 +30,6 @@ serve(async (req: Request) => {
         emailRedirectTo: "http://localhost:3000",
       },
     });
-
-    console.log(data);
 
     return new Response(JSON.stringify({ data }), {
       headers: { "Content-Type": "application/json" },

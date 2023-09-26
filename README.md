@@ -3,6 +3,12 @@
 To get started with development first clone the repo and start up the
 devcontainer.
 
+#### Link to Deno executable
+
+```
+Set "Deno: Path" in extension User settings to ~/.deno/bin/deno
+```
+
 Start Supabase with:
 
 ```bash
@@ -44,4 +50,34 @@ inbucket: http://localhost:54324
 POST: http://localhost:54321/functions/v1/send-otp-email
 
 data: {"email_address": "email@address.co.uk"}
+```
+
+## Local Development (Mac with docker installed)
+
+#### Install Homebrew
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+#### Install Supabase
+
+```bash
+arch -arm64 brew install supabase
+```
+
+#### Install Deno
+
+```bash
+arch -arm64 brew install deno
+
+Install Deno VSCode extension
+Set "Deno: Path" in extension User settings to /opt/homebrew/bin/deno
+```
+
+#### Start Supabase
+
+```bash
+supabase start
+supabase functions serve
 ```

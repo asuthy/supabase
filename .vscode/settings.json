@@ -1,4 +1,6 @@
 {
   "deno.enablePaths": ["./supabase/functions"],
-  "deno.path": "~/.deno/bin"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "deno.cacheOnSave": true
 }
