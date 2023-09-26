@@ -1,37 +1,42 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { createError } from "https://deno.land/x/http_errors/mod.ts";
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createError } from 'https://deno.land/x/http_errors/mod.ts'
+import { corsHeaders } from '../_shared/cors.ts'
 
 serve(async (req: Request) => {
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
   try {
-    const { email_address } = await req.json();
+    const { email_address } = await req.json()
 
     if (!email_address) {
-      throw createError(400, "Missing parameter: email_address is required.");
+      throw createError(400, 'Missing parameter: email_address is required.')
     }
 
     const supabase = createClient(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       {
         global: {
-          headers: { Authorization: req.headers.get("Authorization")! },
-        },
+          headers: { Authorization: req.headers.get('Authorization')! }
+        }
       }
-    );
+    )
 
     const { data } = await supabase.auth.signInWithOtp({
-      email: email_address,
-    });
+      email: email_address
+    })
 
     return new Response(JSON.stringify({ data }), {
-      headers: { "Content-Type": "application/json" },
-      status: 200,
-    });
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200
+    })
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
-      headers: { "Content-Type": "application/json" },
-      status: 400,
-    });
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 400
+    })
   }
-});
+})
