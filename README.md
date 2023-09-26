@@ -3,12 +3,6 @@
 To get started with development first clone the repo and start up the
 devcontainer.
 
-#### Link to Deno executable
-
-```
-Set "Deno: Path" in extension User settings to ~/.deno/bin/deno
-```
-
 Start Supabase with:
 
 ```bash
