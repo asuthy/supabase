@@ -46,6 +46,14 @@ POST: http://localhost:54321/functions/v1/send-otp-email
 data: {"email_address": "email@address.co.uk"}
 ```
 
+#### verify-otp-email (Authenticate the supplied email address against the login code)
+
+```bash
+POST: http://localhost:54321/functions/v1/verify-otp-email
+
+data: {"email_address": "email@address.co.uk", "one_time_code": "??????"}
+```
+
 ## Local Development (Mac with docker installed)
 
 #### Install Homebrew

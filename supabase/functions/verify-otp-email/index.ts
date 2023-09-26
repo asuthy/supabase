@@ -4,10 +4,14 @@ import { createError } from "https://deno.land/x/http_errors/mod.ts";
 
 serve(async (req: Request) => {
   try {
-    const { email_address } = await req.json();
+    const { email_address, one_time_code } = await req.json();
 
     if (!email_address) {
       throw createError(400, "Missing parameter: email_address is required.");
+    }
+
+    if (!one_time_code) {
+      throw createError(400, "Missing parameter: one_time_code is required.");
     }
 
     const supabase = createClient(
@@ -20,8 +24,10 @@ serve(async (req: Request) => {
       }
     );
 
-    const { data } = await supabase.auth.signInWithOtp({
+    const { data } = await supabase.auth.verifyOtp({
       email: email_address,
+      token: one_time_code,
+      type: "email",
     });
 
     return new Response(JSON.stringify({ data }), {
