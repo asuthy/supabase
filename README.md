@@ -54,6 +54,12 @@ POST: http://localhost:54321/functions/v1/verify-otp-email
 data: {"email_address": "email@address.co.uk", "one_time_code": "??????"}
 ```
 
+#### user-from-token (Get user details from session.access_token provided by verify-otp-email )
+
+```bash
+GET: http://localhost:54321/functions/v1/user-from-token
+```
+
 ## Local Development (Mac with docker installed)
 
 #### Install Homebrew
