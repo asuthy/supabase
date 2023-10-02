@@ -96,8 +96,8 @@ supabase functions serve
 
 ```
 insert into vault.secrets (secret, name, description)
-values ('', 'slack_notification_token', 'Slack token to enable notifications') returning *;
+values ('token', 'slack_notification_token', 'Slack token to enable notifications') returning *;
 
 insert into vault.secrets (secret, name, description)
-values ('', 'slack_notification_channel', 'Slack channel to send notification to') returning *;
+values ('channel', 'slack_notification_channel', 'Slack channel to send notification to') returning *;
 ```
