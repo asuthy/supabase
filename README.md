@@ -89,3 +89,15 @@ Set "Deno: Path" in extension User settings to /opt/homebrew/bin/deno
 supabase start
 supabase functions serve
 ```
+
+## Secrets
+
+#### Slack token and channel to use to send notifications
+
+```
+insert into vault.secrets (secret, name, description)
+values ('', 'slack_notification_token', 'Slack token to enable notifications') returning *;
+
+insert into vault.secrets (secret, name, description)
+values ('', 'slack_notification_channel', 'Slack channel to send notification to') returning *;
+```
