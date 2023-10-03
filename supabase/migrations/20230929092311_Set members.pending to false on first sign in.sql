@@ -17,6 +17,11 @@ begin
   from copyfuse.members
   where user_id = sign_in_user_id;
 
+  update copyfuse.members
+  set pending = false
+  where user_id = sign_in_user_id
+  and pending = true;
+
   insert into copyfuse.activities(members, activity_category, activity_json)
   values (member_id, 'auth.sign_in', JSONB_BUILD_OBJECT('user_id', sign_in_user_id));
 
@@ -25,7 +30,7 @@ end;
 $function$
 ;
 
-create or replace trigger on_auth_mfa_amr_claims_insert
+create or replace trigger on_mfa_amr_claims_insert
 after insert on auth.mfa_amr_claims
 for each row
 execute function copyfuse.on_auth_mfa_amr_claims_insert();
