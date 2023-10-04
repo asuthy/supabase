@@ -36,30 +36,6 @@ studio: http://localhost:54323
 inbucket: http://localhost:54324
 ```
 
-### Edge Functions
-
-#### send-otp-email (send sign in code and link to supplied email address via inbucket)
-
-```bash
-POST: http://localhost:54321/functions/v1/send-otp-email
-
-data: {"email_address": "email@address.co.uk"}
-```
-
-#### verify-otp-email (Authenticate the supplied email address against the login code)
-
-```bash
-POST: http://localhost:54321/functions/v1/verify-otp-email
-
-data: {"email_address": "email@address.co.uk", "one_time_code": "??????"}
-```
-
-#### user-from-token (Get user details from session.access_token provided by verify-otp-email )
-
-```bash
-GET: http://localhost:54321/functions/v1/user-from-token
-```
-
 ## Local Development (Mac with docker installed)
 
 #### Install Homebrew
@@ -100,4 +76,76 @@ values ('token', 'slack_notification_token', 'Slack token to enable notification
 
 insert into vault.secrets (secret, name, description)
 values ('channel', 'slack_notification_channel', 'Slack channel to send notification to') returning *;
+```
+
+## Swiss
+
+#### Auth
+
+Pass anon key as bearer token
+
+#### Headers
+
+```
+GET,HEAD - Accept-Profile swiss
+POST,PATCH,PUT,DELETE - Content-Profile swiss | Prefer return=representation
+```
+
+#### Get swiss collections locally
+
+```
+GET - http://localhost:54321/rest/v1/collections
+
+Returns status 200 with array of collections
+```
+
+#### Get swiss collections and their entities locally
+
+```
+GET - http://localhost:54321/rest/v1/collections?select=id,name,description,entities(*)&order=id
+
+Returns status 200 with array of collections with their associated entities
+```
+
+#### Create swiss collections locally
+
+```
+POST - http://localhost:54321/rest/v1/collections?select=*
+
+BODY
+
+{
+    "networks": "1",
+    "name": "Test",
+    "description": "Test"
+}
+
+Returns status 201 - created with an array of created collections
+```
+
+#### Get swiss entities locally
+
+```
+GET - http://localhost:54321/rest/v1/entities
+
+Returns status 200 with array of entities
+```
+
+#### Create swiss entities locally
+
+```
+POST - http://localhost:54321/rest/v1/entities?select=*
+
+BODY
+
+{
+    "collections": "1",
+    "entities_json":
+    {
+        "key1": "val1",
+        "key2": "val2"
+    }
+}
+
+Returns status 201 - created with an array of created entities
 ```
