@@ -103,6 +103,7 @@ Returns status 200 with array of collections
 
 ```
 GET - http://localhost:54321/rest/v1/collections?select=id,name,description,entities(*)&order=id
+HEADER - swiss-apikey = ?
 
 Returns status 200 with array of collections with their associated entities
 ```
@@ -127,6 +128,7 @@ Returns status 201 - created with an array of created collections
 
 ```
 GET - http://localhost:54321/rest/v1/entities
+HEADER - swiss-apikey = ?
 
 Returns status 200 with array of entities
 ```
@@ -135,6 +137,7 @@ Returns status 200 with array of entities
 
 ```
 POST - http://localhost:54321/rest/v1/entities?select=*
+HEADER - swiss-apikey = ?
 
 BODY
 
