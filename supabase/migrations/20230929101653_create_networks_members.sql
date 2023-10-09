@@ -20,4 +20,4 @@ alter table "copyfuse"."networks_members" add constraint "networks_members_netwo
 
 alter table "copyfuse"."networks_members" validate constraint "networks_members_networks_fkey";
 
-
+grant all on table copyfuse.networks_members to authenticated;

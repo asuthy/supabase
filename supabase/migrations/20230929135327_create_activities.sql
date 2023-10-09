@@ -21,3 +21,5 @@ alter table "copyfuse"."activities" validate constraint "activities_members_fkey
 alter table "copyfuse"."activities" add constraint "activities_networks_fkey" FOREIGN KEY (networks) REFERENCES copyfuse.networks(id) ON DELETE SET NULL not valid;
 
 alter table "copyfuse"."activities" validate constraint "activities_networks_fkey";
+
+grant all on table copyfuse.activities to authenticated;

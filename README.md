@@ -107,7 +107,7 @@ GET - http://localhost:54321/rest/v1/collections?select=id,name,description,enti
 Returns status 200 with array of collections with their associated entities
 ```
 
-#### Create swiss collections locally
+#### Create swiss collections locally (need to be a member of the network)
 
 ```
 POST - http://localhost:54321/rest/v1/collections?select=*
@@ -148,4 +148,19 @@ BODY
 }
 
 Returns status 201 - created with an array of created entities
+```
+
+#### Request swiss api key locally
+
+```
+POST - http://localhost:54321/rest/v1/rpc/request_api_key
+
+BODY
+
+{
+    "networks": 1,
+    "collections": 1
+}
+
+Returns status 200 - json containing token string
 ```

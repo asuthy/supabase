@@ -16,4 +16,4 @@ CREATE UNIQUE INDEX pending_members_pkey ON copyfuse.members USING btree (id);
 
 alter table "copyfuse"."members" add constraint "pending_members_pkey" PRIMARY KEY using index "pending_members_pkey";
 
-
+grant all on table copyfuse.members to authenticated;
