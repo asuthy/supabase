@@ -56,4 +56,4 @@ alter table "swiss"."entities" validate constraint "entities_collections_fkey";
 
 grant all on table swiss.attachments to authenticated;
 grant all on table swiss.collections to authenticated;
-grant all on table swiss.entities to authenticated;
+grant all on table swiss.entities to anon, authenticated;

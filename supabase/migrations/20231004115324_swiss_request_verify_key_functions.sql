@@ -57,6 +57,7 @@ $function$
 CREATE OR REPLACE FUNCTION swiss.verify_api_key(token_param text)
  RETURNS boolean
  LANGUAGE plpgsql
+ SECURITY DEFINER
 AS $function$
 declare 
   verified_payload text;
@@ -94,8 +95,23 @@ $function$
 GRANT EXECUTE ON FUNCTION swiss.request_api_key TO authenticated;
 GRANT EXECUTE ON FUNCTION swiss.request_api_key TO service_role;
 
+GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO anon;
 GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO authenticated;
 GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO service_role;
 
 GRANT EXECUTE ON FUNCTION copyfuse.get_jwt_secret TO authenticated;
 GRANT EXECUTE ON FUNCTION copyfuse.get_jwt_secret TO service_role;
+
+create policy "Allow verified keys to create entities in their collections"
+    on "swiss"."entities"
+    as permissive
+    for insert
+    to public
+    with check (swiss.verify_api_key((current_setting('request.headers'::text, true))::json ->> 'swiss-apikey'::text ));
+
+create policy "Allow verified keys to view entities in their collections"
+    on "swiss"."entities"
+    as permissive
+    for select
+    to public
+    using (swiss.verify_api_key((current_setting('request.headers'::text, true))::json ->> 'swiss-apikey'::text ));
