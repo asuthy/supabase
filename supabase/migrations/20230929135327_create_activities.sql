@@ -22,4 +22,4 @@ alter table "copyfuse"."activities" add constraint "activities_networks_fkey" FO
 
 alter table "copyfuse"."activities" validate constraint "activities_networks_fkey";
 
-grant all on table copyfuse.activities to authenticated;
+grant all on table copyfuse.activities to authenticated, service_role;

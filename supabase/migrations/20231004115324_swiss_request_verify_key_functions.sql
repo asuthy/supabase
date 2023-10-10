@@ -45,7 +45,7 @@ begin
     algorithm := 'HS256'
   );
 
-  insert into kis.swiss_api_keys
+  insert into secrets.swiss_tokens
   (token, networks, collections)
   select token, networks, collections;
 
@@ -80,7 +80,7 @@ begin
   select (verified_payload::json->>'collections')::integer into payload_collections;
   
   if exists( select 1
-              from kis.decrypted_swiss_api_keys
+              from secrets.decrypted_swiss_tokens
               where networks = payload_networks
               and collections = payload_collections
               and decrypted_token = token_param) then
@@ -92,15 +92,9 @@ end;
 $function$
 ;
 
-GRANT EXECUTE ON FUNCTION swiss.request_api_key TO authenticated;
-GRANT EXECUTE ON FUNCTION swiss.request_api_key TO service_role;
-
-GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO anon;
-GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO authenticated;
-GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO service_role;
-
-GRANT EXECUTE ON FUNCTION copyfuse.get_jwt_secret TO authenticated;
-GRANT EXECUTE ON FUNCTION copyfuse.get_jwt_secret TO service_role;
+GRANT EXECUTE ON FUNCTION swiss.request_api_key TO authenticated, service_role;
+GRANT EXECUTE ON FUNCTION swiss.verify_api_key TO anon, authenticated, service_role;
+GRANT EXECUTE ON FUNCTION copyfuse.get_jwt_secret TO authenticated, service_role;
 
 create policy "Allow verified keys to create entities in their collections"
     on "swiss"."entities"

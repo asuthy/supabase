@@ -14,4 +14,4 @@ CREATE UNIQUE INDEX networks_pkey ON copyfuse.networks USING btree (id);
 
 alter table "copyfuse"."networks" add constraint "networks_pkey" PRIMARY KEY using index "networks_pkey";
 
-grant all on table copyfuse.networks to authenticated;
+grant all on table copyfuse.networks to authenticated, service_role;

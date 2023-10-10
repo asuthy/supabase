@@ -19,8 +19,7 @@ end;
 $function$
 ;
 
-GRANT EXECUTE ON FUNCTION copyfuse.is_users_networks_members TO authenticated;
-GRANT EXECUTE ON FUNCTION copyfuse.is_users_networks_members TO service_role;
+GRANT EXECUTE ON FUNCTION copyfuse.is_users_networks_members TO authenticated, service_role;
 
 create policy "Members can create collections for networks they are associated to"
     on "swiss"."collections"

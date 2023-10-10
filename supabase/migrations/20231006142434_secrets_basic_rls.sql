@@ -1,7 +1,7 @@
-grant execute on all functions in schema pgsodium to authenticated;
+grant execute on all functions in schema pgsodium to authenticated, service_role;
 
 create policy "Members can create api keys for networks they are associated to"
-    on "kis"."swiss_api_keys"
+    on "secrets"."swiss_tokens"
     as permissive
     for insert
     to authenticated

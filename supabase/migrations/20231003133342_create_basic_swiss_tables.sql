@@ -54,6 +54,6 @@ alter table "swiss"."entities" add constraint "entities_collections_fkey" FOREIG
 
 alter table "swiss"."entities" validate constraint "entities_collections_fkey";
 
-grant all on table swiss.attachments to authenticated;
-grant all on table swiss.collections to authenticated;
-grant all on table swiss.entities to anon, authenticated;
+grant all on table swiss.attachments to authenticated, service_role;
+grant all on table swiss.collections to authenticated, service_role;
+grant all on table swiss.entities to anon, authenticated, service_role;
